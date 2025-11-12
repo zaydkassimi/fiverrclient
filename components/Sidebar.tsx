@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 
 type SidebarProps = {
@@ -16,13 +15,29 @@ const items = [
   { href: '/inbox', label: 'Inbox' }
 ]
 
+import React, { useEffect, useState } from 'react'
+import { getCompany } from '../lib/company'
+
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
+  const [companyName, setCompanyName] = useState<string>('CA')
+
+  useEffect(() => {
+    try {
+      const c = getCompany()
+      // show short name or first word
+      const short = c.name.split(' ')[0] || c.name
+      setCompanyName(short)
+    } catch {
+      // ignore
+    }
+  }, [])
+
   return (
     <>
       {/* Desktop sidebar */}
       <aside className="w-64 bg-white border-r hidden md:block">
         <div className="h-16 flex items-center justify-center border-b">
-          <span className="font-bold">CA</span>
+          <span className="font-bold">{companyName}</span>
         </div>
         <nav className="p-4">
           <ul className="space-y-2">
@@ -45,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         <div className="absolute inset-0 bg-black opacity-30" onClick={onClose} />
         <aside className="relative w-64 bg-white h-full border-r">
           <div className="h-16 flex items-center justify-between px-4 border-b">
-            <span className="font-bold">CA</span>
+            <span className="font-bold">{companyName}</span>
             <button className="text-gray-600" onClick={onClose} aria-label="Close menu">
               ✕
             </button>

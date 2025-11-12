@@ -21,12 +21,20 @@ function AuthGate({ children }: { children: React.ReactNode }) {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  const isAuthRoute = router.pathname === '/login'
+
   return (
     <AuthProvider>
       <AuthGate>
-        <Layout>
+        {isAuthRoute ? (
+          // Render login without the app chrome/layout
           <Component {...pageProps} />
-        </Layout>
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </AuthGate>
     </AuthProvider>
   )
