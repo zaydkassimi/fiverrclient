@@ -8,7 +8,10 @@ type SidebarProps = {
 const items = [
   { href: '/', label: 'Dashboard' },
   { href: '/accounting', label: 'Accounting' },
-  { href: '/invoicing', label: 'Invoicing' },
+  { href: '/accounting/manual', label: 'Manual Entry' },
+  { href: '/accounting/reports', label: 'Accounting Reports' },
+  { href: '/sales', label: 'Sales' },
+  { href: '/purchasing', label: 'Purchasing' },
   { href: '/payroll', label: 'Payroll' },
   { href: '/inventory', label: 'Inventory' },
   { href: '/reports', label: 'Reports' },
